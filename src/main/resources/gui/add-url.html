@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ciberminer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 </head>
 <body>
     <p><a href="index.html">Back to Welcome screen</a></p>
@@ -14,8 +15,7 @@
                 <textarea style="color: green;text-transform:uppercase;"
                           type="text" rows="10" cols="80"
                           class="form-control" id="urlInput"
-                          placeholder="Please enter your URL here.">
-                </textarea>
+                          placeholder="Please enter your URL here."></textarea>
             </div>
         </div>
         </br>
@@ -25,13 +25,15 @@
                 <textarea style="color: crimson;"
                           type="text" rows="10" cols="80"
                           class="form-control" id="descriptionInput"
-                          placeholder="Please enter your description here.">
-                </textarea>
+                          placeholder="Please enter your description here."></textarea>
             </div>
         </div>
         </br>
         <div class="form-row">
             <input type="submit" value="SUBMIT" id="addUrlSubmitButton"/>
+        </div>
+        <div class="alert alert-danger" role="alert" id="invalidUrlMessage">
+            <strong>You entered an invalid URL</strong>
         </div>
     </form>
 </body>

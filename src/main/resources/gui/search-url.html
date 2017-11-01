@@ -3,31 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Ciberminer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 </head>
 <body>
     <p><a href="index.html">Back to Welcome screen</a></p>
     <h3 id="searchTitle">SEARCH</h3>
     <form style="margin-top: 2%;" id="form">
         <div class="form-row">
-            <div class="col-10">
+            <div class="col-9">
                     <textarea style="color: green;text-transform:uppercase;"
                               type="text" rows="10" cols="80"
                               placeholder="What are you looking for?"
-                              class="form-control" id="searchInput">
-                    </textarea>
+                              class="form-control" id="searchInput"></textarea>
             </div>
-            <div class="col-10">
+            <div class="col-3">
                 <input type="submit" value="Search" id="searchButton">
             </div>
         </div>
         </br>
         <div class="form-row">
+            <div class="col-6">
+                <h3 id="resultLabel">RESULTS</h3>
+            </div>
+            <div class="col-3">
+                <img src="ascending.png" width="75" height="75" id="ascendingButton">
+            </div>
+            <div class="col-3">
+                <img src="descending.png" width="75" height="75" id="descendingButton">
+            </div>
+        </div>
+        <div class="form-row">
             <div class="col-10">
                     <textarea style="color: crimson;"
                               type="text" rows="10" cols="80"
                               readonly
-                              class="form-control" id="searchResultArea">
-                    </textarea>
+                              class="form-control" id="searchResultArea"></textarea>
             </div>
         </div>
     </form>

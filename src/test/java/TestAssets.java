@@ -3,7 +3,7 @@ public class TestAssets {
     enum Component {URL, DESCRIPTION}
     enum ValidSite {GOOGLE, UTD, WIKIPEDIA, FANFICTION}
     enum InvalidSite {INVALID_1, INVALID_2}
-    enum SearchBy {ONE_WORD, MULTI_WORDS_1, MULTI_WORDS_2}
+    enum SearchBy {ONE_WORD, MULTI_WORDS_ORIGINAL_ORDER, MULTI_WORDS_SHUFFLE_ORDER}
 
     public static final String[][] VALID_ITEMS = {
             {"http://www.google.com", "This is the Google home page"},
@@ -18,10 +18,10 @@ public class TestAssets {
     };
 
     public static final String[][] VALID_SEARCHES = {
-            {"Google", "the Google home page", "page This is"},
-            {"DALLAS", "UNIVERSITY OF TEXAS", "OF TEXAS AT DALLAS"},
-            {"Wikipedia", "encyclopedia yet Wikipedia", "is the world's"},
-            {"FICTION", "website don't ask me why", "why FAN"}
+            {"Google", "the Google home page", "page this is"},
+            {"DALLAS", "UNIVERSITY OF TEXAS", "at Dallas the "},
+            {"Wikipedia", "largest encyclopedia yet", "encyclopedia yet Wikipedia"},
+            {"FICTION", "website don't ask me why", "why fan"}
     };
 
     public static final String[] INVALID_SEARCH = {

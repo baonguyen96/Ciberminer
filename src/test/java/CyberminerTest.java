@@ -168,7 +168,195 @@ public class CyberminerTest {
     }
 
 
+    @Test(priority = 8)
+    public void verifyNewValidUrl() {
+        try {
+            driver.get(baseUrl + "/Ciberminer/gui/index.html");
+            driver.findElement(By.id("addUrlButton")).click();
 
+            for (String[] item : TestAssets.VALID_ITEMS) {
+                driver.findElement(By.id("urlInput")).clear();
+                driver.findElement(By.id("urlInput")).sendKeys(
+                        item[TestAssets.Component.URL.ordinal()]);
+                driver.findElement(By.id("descriptionInput")).clear();
+                driver.findElement(By.id("descriptionInput")).sendKeys(
+                        item[TestAssets.Component.DESCRIPTION.ordinal()]);
+                driver.findElement(By.id("addUrlSubmitButton")).click();
+                assertFalse(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
+            }
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 9)
+    public void verifyAbleToRejectInvalidUrl() {
+        try {
+//            driver.get(baseUrl + "/Ciberminer/gui/index.html");
+//            driver.findElement(By.id("addUrlButton")).click();
+
+            for (String[] item : TestAssets.INVALID_ITEMS) {
+                driver.findElement(By.id("urlInput")).clear();
+                driver.findElement(By.id("urlInput")).sendKeys(
+                        item[TestAssets.Component.URL.ordinal()]);
+                driver.findElement(By.id("descriptionInput")).clear();
+                driver.findElement(By.id("descriptionInput")).sendKeys(
+                        item[TestAssets.Component.DESCRIPTION.ordinal()]);
+                driver.findElement(By.id("addUrlSubmitButton")).click();
+                assertTrue(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
+            }
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 10)
+    public void verifyAbleToDeleteUrl() {
+
+    }
+
+
+    @Test(priority = 11)
+    public void verifyAbleToSearchSingleWord() {
+        driver.findElement(By.id("searchUrlButton")).click();
+
+        try {
+            // search google
+
+            // search utd
+
+            // search wikipedia
+
+            // search fanfiction
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 12)
+    public void verifyAbleToSearchMultiWordsOriginalOrder() {
+        try {
+            // search google
+
+            // search utd
+
+            // search wikipedia
+
+            // search fanfiction
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 13)
+    public void verifyAbleToSearchMultiWordsShuffledOrder() {
+        try {
+            // search google
+
+            // search utd
+
+            // search wikipedia
+
+            // search fanfiction
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(priority = 14)
+    public void verifyAbleToDetectNonExistingSearch() {
+        try {
+            // DNE 1
+
+            // DNE 2
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 15)
+    public void verifyAndSearch() {
+        try {
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 16)
+    public void verifyOrSearch() {
+        try {
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 17)
+    public void verifyNotSearch() {
+        try {
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 18)
+    public void verifyAbleToSortAscendingDescription() {
+        try {
+            // https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    @Test(priority = 19)
+    public void verifyAbleToSortDescendingDescription() {
+        try {
+            //https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
+        }
+        catch (Error e) {
+            testLog.fail(e.getMessage());
+            e.printStackTrace();
+            fail();
+        }
+    }
 
 
     @AfterClass(alwaysRun = true)
