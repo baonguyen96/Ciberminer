@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ciberminer.iml" filepath="$PROJECT_DIR$/Ciberminer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cyberminer.iml" filepath="$PROJECT_DIR$/Cyberminer.iml" />
     </modules>
   </component>
 </project>
