@@ -36,7 +36,7 @@ public class CyberminerTest {
                 driver = new FirefoxDriver();
                 break;
         }
-        baseUrl = "http://localhost:63342/Ciberminer/Cyberminer/gui/index.html";
+        baseUrl = "http://localhost:63342/Cyberminer/gui/index.html";
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         testLog = new TestLog(browser.name());
     }
@@ -55,10 +55,8 @@ public class CyberminerTest {
 
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
 
     }
@@ -76,10 +74,8 @@ public class CyberminerTest {
 
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -91,10 +87,8 @@ public class CyberminerTest {
             driver.findElement(By.linkText("Back to Welcome screen")).click();
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -110,10 +104,8 @@ public class CyberminerTest {
 
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -125,10 +117,8 @@ public class CyberminerTest {
             driver.findElement(By.linkText("Back to Welcome screen")).click();
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -145,10 +135,8 @@ public class CyberminerTest {
 
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -160,10 +148,8 @@ public class CyberminerTest {
             driver.findElement(By.linkText("Back to Welcome screen")).click();
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -187,10 +173,8 @@ public class CyberminerTest {
 
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -214,10 +198,8 @@ public class CyberminerTest {
 
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -227,10 +209,8 @@ public class CyberminerTest {
         try {
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -249,10 +229,8 @@ public class CyberminerTest {
             // search fanfiction
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -269,10 +247,8 @@ public class CyberminerTest {
             // search fanfiction
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -289,10 +265,8 @@ public class CyberminerTest {
             // search fanfiction
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -304,10 +278,8 @@ public class CyberminerTest {
             // DNE 2
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -317,10 +289,8 @@ public class CyberminerTest {
         try {
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -330,10 +300,8 @@ public class CyberminerTest {
         try {
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -343,9 +311,9 @@ public class CyberminerTest {
         try {
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
+        catch (Throwable t) {
+            testLog.fail(t.getMessage());
+            t.printStackTrace();
             fail();
         }
     }
@@ -357,10 +325,8 @@ public class CyberminerTest {
             // https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -371,10 +337,8 @@ public class CyberminerTest {
             //https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
             testLog.pass();
         }
-        catch (Error e) {
-            testLog.fail(e.getMessage());
-            e.printStackTrace();
-            fail();
+        catch (Throwable t) {
+            handleThrowable(t);
         }
     }
 
@@ -394,6 +358,14 @@ public class CyberminerTest {
         catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+
+    private void handleThrowable(Throwable t) {
+        String errorMessage = t.getMessage().split("\n")[0];
+        testLog.fail(errorMessage);
+        t.printStackTrace();
+        fail();
     }
 
 }
