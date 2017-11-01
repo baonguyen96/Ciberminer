@@ -15,6 +15,7 @@ public class CyberminerTest {
     private TestLog testLog;
     private enum Browser {CHROME, FIREFOX, SAFARI, IE}
     private Browser browser = Browser.CHROME;
+    private String system = System.getProperty("os.name");
 
 
     @BeforeClass(alwaysRun = true)
@@ -25,16 +26,18 @@ public class CyberminerTest {
             case IE:
                 break;
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver",
+                        String.format("drivers/chromedriver%s", system.contains("mac") ? "" : ".exe"));
                 driver = new ChromeDriver();
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver",
+                        String.format("drivers/geckodriver%s", system.contains("mac") ? "" : ".exe"));
                 driver = new FirefoxDriver();
                 break;
         }
         baseUrl = "http://localhost:63342/Ciberminer/Cyberminer/gui/index.html";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         testLog = new TestLog(browser.name());
     }
 
@@ -65,7 +68,6 @@ public class CyberminerTest {
     public void verifyAbleToGoToAddScreen() {
         try {
             driver.findElement(By.id("addUrlButton")).click();
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
             assertEquals(driver.findElement(By.id("addTitle")).getText(), "Add");
             assertTrue(isElementPresent(By.id("urlLabel")));
             assertTrue(isElementPresent(By.id("urlInput")));
@@ -85,6 +87,7 @@ public class CyberminerTest {
     @Test(priority = 3)
     public void verifyAbleToGoBackFromAddScreen() {
         try {
+            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
             driver.findElement(By.linkText("Back to Welcome screen")).click();
             testLog.pass();
         }
@@ -100,7 +103,6 @@ public class CyberminerTest {
     public void verifyAbleToGoToDeleteScreen() {
         try {
             driver.findElement(By.id("deleteUrlButton")).click();
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
             assertEquals(driver.findElement(By.id("deleteTitle")).getText(), "DELETE");
 
             // verify elements of the Delete page
@@ -119,6 +121,7 @@ public class CyberminerTest {
     @Test(priority = 5)
     public void verifyAbleToGoBackFromDeleteScreen() {
         try {
+            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
             driver.findElement(By.linkText("Back to Welcome screen")).click();
             testLog.pass();
         }
@@ -135,7 +138,6 @@ public class CyberminerTest {
 
         try {
             driver.findElement(By.id("searchUrlButton")).click();
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
             assertEquals(driver.findElement(By.id("searchTitle")).getText(), "SEARCH");
             assertTrue(isElementPresent(By.id("searchInput")));
             assertTrue(isElementPresent(By.id("searchButton")));
@@ -154,6 +156,7 @@ public class CyberminerTest {
     @Test(priority = 7)
     public void verifyAbleToGoBackFromSearchScreen() {
         try {
+            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
             driver.findElement(By.linkText("Back to Welcome screen")).click();
             testLog.pass();
         }
@@ -163,6 +166,9 @@ public class CyberminerTest {
             fail();
         }
     }
+
+
+
 
 
     @AfterClass(alwaysRun = true)
