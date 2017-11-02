@@ -10,7 +10,6 @@ import java.util.Date;
 
 public class TestLog {
     private String reportFileName;
-    private int currentTestCase;
     private Workbook workbook;
     private Sheet sheet;
     enum TestResult {PASS, FAIL}
@@ -18,7 +17,6 @@ public class TestLog {
 
     public TestLog(String browser) throws Exception {
         createWorkbook(browser);
-        currentTestCase = 1;
         sheet = workbook.getSheetAt(0);
     }
 
@@ -54,24 +52,22 @@ public class TestLog {
     }
 
 
-    public void pass() {
-        setCurrentTestCaseResult(TestResult.PASS, null);
+    public void pass(int testCase) {
+        setCurrentTestCaseResult(testCase, TestResult.PASS, null);
     }
 
 
-    public void fail(String message) {
-        setCurrentTestCaseResult(TestResult.FAIL, message);
+    public void fail(int testCase, String message) {
+        setCurrentTestCaseResult(testCase, TestResult.FAIL, message);
     }
 
-    private void setCurrentTestCaseResult(TestResult result, String failMessage) {
-        Row row = sheet.getRow(currentTestCase);
+    private void setCurrentTestCaseResult(int testCase, TestResult result, String failMessage) {
+        Row row = sheet.getRow(testCase);
         row.getCell(3).setCellValue(result.name());
 
         if(result == TestResult.FAIL) {
             row.getCell(4).setCellValue(failMessage);
         }
-
-        currentTestCase++;
     }
 
 

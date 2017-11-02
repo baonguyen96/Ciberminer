@@ -23,7 +23,7 @@
                           placeholder="Please enter your URL here."></textarea>
             </div>
         </div>
-        </br>
+        <br>
         <label for="descriptionInput"
                id="descriptionLabel">DESCRIPTION</label>
         <div class="form-row">
@@ -36,17 +36,34 @@
                           placeholder="Please enter your description here."></textarea>
             </div>
         </div>
-        </br>
+        <br>
         <div class="form-row">
             <input type="submit"
                    value="SUBMIT"
                    id="addUrlSubmitButton"/>
         </div>
+        <!--
+            make the following 2 elements hidden when click on the search area
+            modify visibility of either one when clicking the add button
+            if add successful:
+                surface validUrlMessage
+                hide invalidUrlMessage
+            else:
+                surface invalidUrlMessage
+                hide validUrlMessage
+        -->
         <div class="alert alert-danger"
              role="alert"
              id="invalidUrlMessage"
-             hidden>
-            <strong>You entered an invalid URL</strong>
+             >
+            <strong>Error! </strong>
+            You entered an invalid URL, or the URL is already existed in the database.
+        </div>
+        <div class="alert alert-success"
+             role="alert"
+             id="validUrlMessage">
+            <strong>Congratulation! </strong>
+            New URL-Description is added.
         </div>
     </form>
 </body>

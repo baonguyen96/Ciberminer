@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cyberminer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 </head>
 <body>
     <p><a href="index.html">Back to Welcome screen</a></p>
@@ -12,5 +13,58 @@
         replicate this style (or similar to this)
         for each delete button, name them id="deleteButton{{index}}" to make each of them unique
     -->
+    <div class="form-row table-responsive">
+        <table class="table-striped table-bordered col-10" id="allUrlTable">
+            <thead>
+                <tr>
+                    <td id="urlHeader">
+                        URL
+                    </td>
+                    <td id="descriptionHeader">
+                        DESCRIPTION
+                    </td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <!--
+                    dynamically add new row to the table using jquery
+                    each row consist of 3 columns: url, description, delete button
+                    https://stackoverflow.com/questions/6473111/add-delete-table-rows-dynamically-using-javascript
+
+                    for each of those, index them such that they will have
+                    unique id, i.e. {urlNumber0, descriptionNumber0, deleteButtonNumber0,
+                    urlNumber1, descriptionNumber1, deleteButtonNumber1, etc.}
+                    see documents on page search-url.html for this
+                -->
+                <tr>
+                    <td>
+                        <a href="https://www.google.com" id="urlNumber0">www.google.com</a>
+                    </td>
+                    <td>
+                        <p id="descriptionNumber0">This is google website</p>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                class="alert alert-danger"
+                                id="deleteButtonNumber0">DELETE</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://www.wikipedia.org" id="urlNumber1">www.wikipedia.org</a>
+                    </td>
+                    <td>
+                        <p id="descriptionNumber1">Wikipedia</p>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                class="alert alert-danger"
+                                id="deleteButtonNumber1">DELETE</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

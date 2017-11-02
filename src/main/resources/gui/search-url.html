@@ -20,25 +20,58 @@
                 <input type="submit" value="Search" id="searchButton">
             </div>
         </div>
-        </br>
+        <br>
         <div class="form-row">
             <div class="col-6">
                 <h3 id="resultLabel">RESULTS</h3>
             </div>
             <div class="col-3">
-                <img src="images/ascending.png" style="width:50px;height:50px;" id="ascendingButton">
+                <!-- make this image clickable like a button -->
+                <img src="images/ascending.png" style="width:25px;height:25px;" id="ascendingButton">
             </div>
             <div class="col-3">
-                <img src="images/descending.png" style="width:50px;height:50px;" id="descendingButton">
+                <!-- make this image clickable like a button -->
+                <img src="images/descending.png" style="width:25px;height:25px;" id="descendingButton">
             </div>
         </div>
-        <div class="form-row">
-            <div class="col-10">
-                    <textarea style="color: crimson;"
-                              type="text" rows="10" cols="80"
-                              readonly
-                              class="form-control" id="searchResultArea"></textarea>
-            </div>
+        <div class="form-row table-responsive">
+            <table class="table-striped table-bordered col-10" id="searchResultTable">
+                <thead>
+                    <tr>
+                        <td id="urlHeader">
+                            URL
+                        </td>
+                        <td id="descriptionHeader">
+                            DESCRIPTION
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--
+                        dynamically add new row to the table using jquery
+                        each row consist of 2 columns: url and description
+                        https://stackoverflow.com/questions/6473111/add-delete-table-rows-dynamically-using-javascript
+
+                        for each of those, index them such that they will have
+                        unique id, i.e. {url0, description0, url1, description1, etc.}
+                    -->
+                    <tr>
+                        <td id="url0">
+                            <a href="https://www.google.com">www.google.com</a>
+                        </td>
+                        <td id="description0">
+                            This is google website
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-danger"
+             role="alert"
+             id="invalidSearchMessage"
+             >
+            <strong>Error! </strong>
+            No result found for your search.
         </div>
     </form>
 </body>

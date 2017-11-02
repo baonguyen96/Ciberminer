@@ -9,7 +9,7 @@ public class TestAssets {
             {"http://www.google.com", "This is the Google home page"},
             {"http://www.utdallas.edu", "THE UNIVERSITY OF TEXAS AT DALLAS"},
             {"https://www.wikipedia.org", "Wikipedia is the world's largest encyclopedia yet"},
-            {"https://www.fanfiction.net", "FAN FICTION website don't ask me why"}
+            {"https://www.fanfiction.net", "This is the FAN FICTION website don't ask me why"}
     };
 
     public static final String[][] INVALID_ITEMS = {
@@ -24,8 +24,10 @@ public class TestAssets {
             {"FICTION", "website don't ask me why", "why fan"}
     };
 
-    public static final String[] INVALID_SEARCH = {
+    public static final String[] INVALID_SEARCHES = {
             "Nonexist", "this website does not exist", "random thing to type"
     };
+
+    public static final String SEARCH_WITH_MULTIPLE_RESULTS = "This is the";
 
 }
