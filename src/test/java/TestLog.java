@@ -12,12 +12,14 @@ public class TestLog {
     private String reportFileName;
     private Workbook workbook;
     private Sheet sheet;
+    private int currentTestCase;
     enum TestResult {PASS, FAIL}
 
 
     public TestLog(String browser) throws Exception {
         createWorkbook(browser);
         sheet = workbook.getSheetAt(0);
+        currentTestCase = 1;
     }
 
 
@@ -52,22 +54,24 @@ public class TestLog {
     }
 
 
-    public void pass(int testCase) {
-        setCurrentTestCaseResult(testCase, TestResult.PASS, null);
+    public void pass() {
+        setCurrentTestCaseResult(TestResult.PASS, null);
     }
 
 
-    public void fail(int testCase, String message) {
-        setCurrentTestCaseResult(testCase, TestResult.FAIL, message);
+    public void fail(String message) {
+        setCurrentTestCaseResult(TestResult.FAIL, message);
     }
 
-    private void setCurrentTestCaseResult(int testCase, TestResult result, String failMessage) {
-        Row row = sheet.getRow(testCase);
+    private void setCurrentTestCaseResult(TestResult result, String failMessage) {
+        Row row = sheet.getRow(currentTestCase);
         row.getCell(3).setCellValue(result.name());
 
         if(result == TestResult.FAIL) {
             row.getCell(4).setCellValue(failMessage);
         }
+
+        currentTestCase++;
     }
 
 

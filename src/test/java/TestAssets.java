@@ -2,7 +2,6 @@ public class TestAssets {
 
     enum Component {URL, DESCRIPTION}
     enum ValidSite {GOOGLE, UTD, WIKIPEDIA, FANFICTION}
-    enum InvalidSite {INVALID_1, INVALID_2}
     enum SearchBy {ONE_WORD, MULTI_WORDS_ORIGINAL_ORDER, MULTI_WORDS_SHUFFLE_ORDER}
 
     public static final String[][] VALID_ITEMS = {

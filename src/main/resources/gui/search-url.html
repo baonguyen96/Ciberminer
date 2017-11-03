@@ -6,13 +6,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 </head>
 <body>
-    <p><a href="index.html">Back to Welcome screen</a></p>
+    <p><a href="index.html" id="backToWelcome">Back to Welcome screen</a></p>
     <h3 id="searchTitle">SEARCH</h3>
     <form style="margin-top: 2%;" id="form">
         <div class="form-row">
             <div class="col-9">
-                    <textarea style="color: green;text-transform:uppercase;"
-                              type="text" rows="10" cols="80"
+                    <textarea type="text" rows="10" cols="80"
                               placeholder="What are you looking for?"
                               class="form-control" id="searchInput"></textarea>
             </div>
@@ -53,25 +52,45 @@
                         https://stackoverflow.com/questions/6473111/add-delete-table-rows-dynamically-using-javascript
 
                         for each of those, index them such that they will have
-                        unique id, i.e. {url0, description0, url1, description1, etc.}
+                        unique id, i.e. {urlNumber0, descriptionNumber0, etc.}
                     -->
                     <tr>
-                        <td id="url0">
-                            <a href="https://www.google.com">www.google.com</a>
+                        <td>
+                            <a href="http://www.utdallas.edu" id="urlNumber0">http://www.utdallas.edu</a>
                         </td>
-                        <td id="description0">
-                            This is google website
+                        <td>
+                            <p id="descriptionNumber0">THE UNIVERSITY OF TEXAS AT DALLAS</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://www.fanfiction.net" id="urlNumber1">https://www.fanfiction.net</a>
+                        </td>
+                        <td>
+                            <p id="descriptionNumber1">This is the FAN FICTION website don't ask me why</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://www.wikipedia.org" id="urlNumber2">https://www.wikipedia.org</a>
+                        </td>
+                        <td>
+                            <p id="descriptionNumber2">Wikipedia is the world's largest encyclopedia yet</p>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <!--
+            initially hidden
+            appear when invalid search
+            hide again when click on the search bar
+        -->
         <div class="alert alert-danger"
              role="alert"
              id="invalidSearchMessage"
              >
-            <strong>Error! </strong>
-            No result found for your search.
+            <strong>Error! </strong>No result found for your search.
         </div>
     </form>
 </body>

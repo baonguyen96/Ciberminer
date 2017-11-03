@@ -8,7 +8,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class ModifiabilityTest {
+public class SearchabilityTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -22,41 +22,22 @@ public class ModifiabilityTest {
   }
 
   @Test
-  public void testModifiability() throws Exception {
-    driver.get(baseUrl + "/Ciberminer/gui/index.html");
-    driver.findElement(By.id("addUrlButton")).click();
-    driver.findElement(By.id("urlInput")).clear();
-    driver.findElement(By.id("urlInput")).sendKeys("njnjnjnjnjn");
-    driver.findElement(By.id("descriptionInput")).clear();
-    driver.findElement(By.id("descriptionInput")).sendKeys("njnjnjnjnjnjnjnj");
-    driver.findElement(By.id("addUrlSubmitButton")).click();
+  public void testSearchability() throws Exception {
+    driver.get(baseUrl + "/Ciberminer/Cyberminer/gui/index.html");
+    driver.findElement(By.id("searchUrlButton")).click();
+    driver.findElement(By.id("searchInput")).clear();
+    driver.findElement(By.id("searchInput")).sendKeys("gdfgdfgdfgf");
+    driver.findElement(By.id("searchButton")).click();
     try {
-      assertFalse(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    // test delete
-    try {
-      assertNotEquals("This is google website", driver.findElement(By.id("description0")).getText());
+      assertTrue(driver.findElement(By.id("invalidSearchMessage")).isDisplayed());
     } catch (Error e) {
       verificationErrors.append(e.toString());
     }
     try {
-      assertNotEquals("www.google.com", driver.findElement(By.id("url0")).getText());
+      assertEquals(driver.findElement(By.id("invalidSearchMessage")).getText(), "Error! No result found for your search.");
     } catch (Error e) {
       verificationErrors.append(e.toString());
     }
-    try {
-      assertNotEquals("www.wikipedia.org", driver.findElement(By.id("url1")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertNotEquals("Wikipedia", driver.findElement(By.id("description1")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    String descriptionToDelete = driver.findElement(By.id("description0")).getText();
   }
 
   @AfterClass(alwaysRun = true)

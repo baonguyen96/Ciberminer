@@ -8,19 +8,20 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
 
 public class CyberminerTest {
     private enum Browser {CHROME, FIREFOX, SAFARI, IE}
+
     private WebDriver driver;
     private String baseUrl;
     private TestLog testLog;
     private Browser browser = Browser.FIREFOX;
     private String system = System.getProperty("os.name");
-    private int currentTestCase;
 
 
     @BeforeClass(alwaysRun = true)
@@ -59,8 +60,7 @@ public class CyberminerTest {
 
     @Test(priority = 1)
     public void verifyWelcomeScreen() {
-        currentTestCase = 1;
-        
+
         try {
             assertEquals(driver.findElement(By.id("heading")).getText(), "Welcome to our Cyberminer search engine");
             assertEquals(driver.findElement(By.id("addUrlButton")).getAttribute("value"), "ADD URL");
@@ -68,7 +68,7 @@ public class CyberminerTest {
             assertEquals(driver.findElement(By.id("searchUrlButton")).getAttribute("value"), "SEARCH URL");
             assertTrue(isElementPresent(By.id("help")));
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -79,7 +79,6 @@ public class CyberminerTest {
 
     @Test(priority = 2)
     public void verifyAbleToGoToAddScreen() {
-        currentTestCase = 2;
 
         try {
             driver.findElement(By.id("addUrlButton")).click();
@@ -89,7 +88,7 @@ public class CyberminerTest {
             assertTrue(isElementPresent(By.id("descriptionInput")));
             assertTrue(isElementPresent(By.id("addUrlSubmitButton")));
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -99,34 +98,30 @@ public class CyberminerTest {
 
     @Test(priority = 3)
     public void verifyAbleToGoBackFromAddScreen() {
-        currentTestCase = 3;
 
         try {
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
-            driver.findElement(By.linkText("Back to Welcome screen")).click();
-            assertTrue(driver.findElement(By.id("heading")).isDisplayed());
-            testLog.pass(currentTestCase);
+            goBackToWelcomeScreen();
         }
         catch (Throwable t) {
             handleThrowable(t);
+            driver.get(baseUrl);
         }
     }
 
 
     @Test(priority = 4)
     public void verifyAbleToGoToDeleteScreen() {
-        currentTestCase = 4;
 
         try {
             driver.findElement(By.id("deleteUrlButton")).click();
             assertEquals(driver.findElement(By.id("deleteTitle")).getText(), "DELETE");
-            assertEquals(driver.findElement(By.linkText("Back to Welcome screen")).getText(), "Back to Welcome screen");
+            assertEquals(driver.findElement(By.id("backToWelcome")).getText(), "Back to Welcome screen");
             assertEquals(driver.findElement(By.id("deleteTitle")).getText(), "DELETE");
             assertEquals(driver.findElement(By.id("urlHeader")).getText(), "URL");
             assertEquals(driver.findElement(By.id("descriptionHeader")).getText(), "DESCRIPTION");
             assertTrue(isElementPresent(By.id("allUrlTable")));
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -136,23 +131,19 @@ public class CyberminerTest {
 
     @Test(priority = 5)
     public void verifyAbleToGoBackFromDeleteScreen() {
-        currentTestCase = 5;
 
         try {
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
-            driver.findElement(By.linkText("Back to Welcome screen")).click();
-            assertTrue(driver.findElement(By.id("heading")).isDisplayed());
-            testLog.pass(currentTestCase);
+            goBackToWelcomeScreen();
         }
         catch (Throwable t) {
             handleThrowable(t);
+            driver.get(baseUrl);
         }
     }
 
 
     @Test(priority = 6)
     public void verifyAbleToGoToSearchScreen() {
-        currentTestCase = 6;
 
         try {
             driver.findElement(By.id("searchUrlButton")).click();
@@ -161,7 +152,7 @@ public class CyberminerTest {
             assertTrue(isElementPresent(By.id("searchButton")));
             assertTrue(isElementPresent(By.id("searchResultTable")));
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -171,23 +162,19 @@ public class CyberminerTest {
 
     @Test(priority = 7)
     public void verifyAbleToGoBackFromSearchScreen() {
-        currentTestCase = 7;
 
         try {
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
-            driver.findElement(By.linkText("Back to Welcome screen")).click();
-            assertTrue(driver.findElement(By.id("heading")).isDisplayed());
-            testLog.pass(currentTestCase);
+            goBackToWelcomeScreen();
         }
         catch (Throwable t) {
             handleThrowable(t);
+            driver.get(baseUrl);
         }
     }
 
 
     @Test(priority = 8)
     public void verifyAbleToAddNewValidUrl() {
-        currentTestCase = 8;
 
         try {
             driver.get(baseUrl);
@@ -205,7 +192,7 @@ public class CyberminerTest {
                 assertTrue(driver.findElement(By.id("validUrlMessage")).isDisplayed());
             }
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -215,7 +202,6 @@ public class CyberminerTest {
 
     @Test(priority = 9)
     public void verifyAbleToRejectAddingInvalidUrl() {
-        currentTestCase = 9;
 
         try {
             for (String[] item : TestAssets.INVALID_ITEMS) {
@@ -230,7 +216,7 @@ public class CyberminerTest {
                 assertFalse(driver.findElement(By.id("validUrlMessage")).isDisplayed());
             }
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -240,7 +226,6 @@ public class CyberminerTest {
 
     @Test(priority = 10)
     public void verifyAbleToRejectAddingExistingUrl() {
-        currentTestCase = 10;
 
         try {
             // try google
@@ -258,6 +243,7 @@ public class CyberminerTest {
             );
             driver.findElement(By.id("addUrlSubmitButton")).click();
             assertTrue(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
+            assertFalse(driver.findElement(By.id("validUrlMessage")).isDisplayed());
 
             // try wikipedia
             driver.findElement(By.id("urlInput")).clear();
@@ -274,15 +260,15 @@ public class CyberminerTest {
             );
             driver.findElement(By.id("addUrlSubmitButton")).click();
             assertTrue(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
+            assertFalse(driver.findElement(By.id("validUrlMessage")).isDisplayed());
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
         }
         finally {
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
-            driver.findElement(By.linkText("Back to Welcome screen")).click();
+            driver.findElement(By.id("backToWelcome")).click();
             assertTrue(driver.findElement(By.id("heading")).isDisplayed());
         }
     }
@@ -290,7 +276,6 @@ public class CyberminerTest {
 
     @Test(priority = 11)
     public void verifyAbleToDeleteUrl() {
-        currentTestCase = 11;
 
         try {
             driver.findElement(By.id("deleteUrlButton")).click();
@@ -302,28 +287,22 @@ public class CyberminerTest {
 
             driver.findElement(By.id("deleteButtonNumber0")).click();
 
-            ArrayList<WebElement> remainingUrlList = (ArrayList<WebElement>) driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]"));
-            ArrayList<WebElement> remainingDescriptionList = (ArrayList<WebElement>) driver.findElements(By.xpath("//*[contains(@id, 'descriptionNumber')]"));
+            List<WebElement> remainingUrlList = driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]"));
+            List<WebElement> remainingDescriptionList = driver.findElements(By.xpath("//*[contains(@id, 'descriptionNumber')]"));
 
-
-//            assertTrue(urlToDelete.equals(remainingUrlList.get(0).getText()));
-//            assertTrue(descriptionToDelete.equals(remainingDescriptionList.get(0).getText()));
-//            assertFalse(urlToDelete.equals(remainingUrlList.get(1).getText()));
-//            assertFalse(descriptionToDelete.equals(remainingDescriptionList.get(1).getText()));
-
-            for(int i = 0; i < remainingUrlList.size(); i++) {
+            for (int i = 0; i < remainingUrlList.size(); i++) {
                 assertFalse(urlToDelete.equals(remainingUrlList.get(i).getText()));
                 assertFalse(descriptionToDelete.equals(remainingDescriptionList.get(i).getText()));
             }
 
-            testLog.pass(currentTestCase);
+
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
         }
         finally {
-            assertTrue(isElementPresent(By.linkText("Back to Welcome screen")));
-            driver.findElement(By.linkText("Back to Welcome screen")).click();
+            driver.findElement(By.id("backToWelcome")).click();
             assertTrue(driver.findElement(By.id("heading")).isDisplayed());
         }
     }
@@ -331,19 +310,32 @@ public class CyberminerTest {
 
     @Test(priority = 12)
     public void verifyAbleToSearchSingleWord() {
-        currentTestCase = 12;
 
         try {
             driver.findElement(By.id("searchUrlButton")).click();
+            assertEquals(driver.findElement(By.id("searchTitle")).getText(), "SEARCH");
 
-            // search google
+            String expectedUrl = null, actualUrl = null,
+                    expectedDescription = null, actualDescription = null;
 
-            // search utd
+            for (TestAssets.ValidSite site : TestAssets.ValidSite.values()) {
+                driver.findElement(By.id("searchInput")).clear();
+                driver.findElement(By.id("searchInput")).sendKeys(
+                        TestAssets.VALID_SEARCHES[site.ordinal()][TestAssets.SearchBy.ONE_WORD.ordinal()]
+                );
+                driver.findElement(By.id("searchButton")).click();
 
-            // search wikipedia
+                expectedUrl = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.URL.ordinal()];
+                actualUrl = driver.findElement(By.id("urlNumber0")).getText();
+                assertTrue(expectedUrl.equals(actualUrl));
 
-            // search fanfiction
-            testLog.pass(currentTestCase);
+                expectedDescription = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
+                actualDescription = driver.findElement(By.id("descriptionNumber0")).getText();
+                assertTrue(expectedDescription.equals(actualDescription));
+
+            }
+
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -353,17 +345,29 @@ public class CyberminerTest {
 
     @Test(priority = 13)
     public void verifyAbleToSearchMultiWordsOriginalOrder() {
-        currentTestCase = 13;
 
         try {
-            // search google
+            String expectedUrl = null, actualUrl = null,
+                    expectedDescription = null, actualDescription = null;
 
-            // search utd
+            for (TestAssets.ValidSite site : TestAssets.ValidSite.values()) {
+                driver.findElement(By.id("searchInput")).clear();
+                driver.findElement(By.id("searchInput")).sendKeys(
+                        TestAssets.VALID_SEARCHES[site.ordinal()][TestAssets.SearchBy.MULTI_WORDS_ORIGINAL_ORDER.ordinal()]
+                );
+                driver.findElement(By.id("searchButton")).click();
 
-            // search wikipedia
+                expectedUrl = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.URL.ordinal()];
+                actualUrl = driver.findElement(By.id("urlNumber0")).getText();
+                assertTrue(expectedUrl.equals(actualUrl));
 
-            // search fanfiction
-            testLog.pass(currentTestCase);
+                expectedDescription = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
+                actualDescription = driver.findElement(By.id("descriptionNumber0")).getText();
+                assertTrue(expectedDescription.equals(actualDescription));
+
+            }
+
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -373,17 +377,29 @@ public class CyberminerTest {
 
     @Test(priority = 14)
     public void verifyAbleToSearchMultiWordsShuffledOrder() {
-        currentTestCase = 14;
 
         try {
-            // search google
+            String expectedUrl = null, actualUrl = null,
+                    expectedDescription = null, actualDescription = null;
 
-            // search utd
+            for (TestAssets.ValidSite site : TestAssets.ValidSite.values()) {
+                driver.findElement(By.id("searchInput")).clear();
+                driver.findElement(By.id("searchInput")).sendKeys(
+                        TestAssets.VALID_SEARCHES[site.ordinal()][TestAssets.SearchBy.MULTI_WORDS_SHUFFLE_ORDER.ordinal()]
+                );
+                driver.findElement(By.id("searchButton")).click();
 
-            // search wikipedia
+                expectedUrl = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.URL.ordinal()];
+                actualUrl = driver.findElement(By.id("urlNumber0")).getText();
+                assertTrue(expectedUrl.equals(actualUrl));
 
-            // search fanfiction
-            testLog.pass(currentTestCase);
+                expectedDescription = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
+                actualDescription = driver.findElement(By.id("descriptionNumber0")).getText();
+                assertTrue(expectedDescription.equals(actualDescription));
+
+            }
+
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -392,10 +408,9 @@ public class CyberminerTest {
 
     @Test(priority = 15)
     public void verifyAbleToDetectNonExistingSearch() {
-        currentTestCase = 15;
 
         try {
-            for(String invalidSearch : TestAssets.INVALID_SEARCHES) {
+            for (String invalidSearch : TestAssets.INVALID_SEARCHES) {
                 driver.findElement(By.id("searchInput")).clear();
                 driver.findElement(By.id("searchInput")).sendKeys(invalidSearch);
                 driver.findElement(By.id("searchButton")).click();
@@ -403,7 +418,7 @@ public class CyberminerTest {
                 assertEquals(driver.findElement(By.id("invalidSearchMessage")).getText(), "Error! No result found for your search.");
             }
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -413,10 +428,42 @@ public class CyberminerTest {
 
     @Test(priority = 16)
     public void verifyAndSearch() {
-        currentTestCase = 16;
 
         try {
-            testLog.pass(currentTestCase);
+            // error ("google" and "wikipedia)
+            String searchQuery = String.format("%s [AND] %s",
+                    TestAssets.VALID_SEARCHES
+                            [TestAssets.ValidSite.GOOGLE.ordinal()]
+                            [TestAssets.SearchBy.ONE_WORD.ordinal()],
+                    TestAssets.VALID_SEARCHES
+                            [TestAssets.ValidSite.WIKIPEDIA.ordinal()]
+                            [TestAssets.SearchBy.ONE_WORD.ordinal()]
+            );
+            driver.findElement(By.id("searchInput")).clear();
+            driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
+            driver.findElement(By.id("searchButton")).click();
+            assertTrue(driver.findElement(By.id("invalidSearchMessage")).isDisplayed());
+            assertEquals(driver.findElement(By.id("invalidSearchMessage")).getText(), "Error! No result found for your search.");
+            assertFalse(isElementPresent(By.id("urlNumber0")));
+
+            // ok (return google)
+            searchQuery = String.format("%s [AND] %s",
+                    TestAssets.VALID_SEARCHES
+                            [TestAssets.ValidSite.GOOGLE.ordinal()]
+                            [TestAssets.SearchBy.ONE_WORD.ordinal()],
+                    TestAssets.SEARCH_WITH_MULTIPLE_RESULTS
+            );
+            driver.findElement(By.id("searchInput")).clear();
+            driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
+            driver.findElement(By.id("searchButton")).click();
+            String expectedUrl = TestAssets.VALID_ITEMS[TestAssets.ValidSite.GOOGLE.ordinal()][TestAssets.Component.URL.ordinal()];
+            String actualUrl = driver.findElement(By.id("urlNumber0")).getText();
+            String expectedDescription = TestAssets.VALID_ITEMS[TestAssets.ValidSite.GOOGLE.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
+            String actualDescription = driver.findElement(By.id("descriptionNumber0")).getText();
+            assertTrue(expectedUrl.equals(actualUrl));
+            assertTrue(expectedDescription.equals(actualDescription));
+
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -426,10 +473,42 @@ public class CyberminerTest {
 
     @Test(priority = 17)
     public void verifyOrSearch() {
-        currentTestCase = 17;
 
         try {
-            testLog.pass(currentTestCase);
+            // error
+            String searchQuery = String.format("%s [OR] %s",
+                    TestAssets.INVALID_SEARCHES[TestAssets.SearchBy.ONE_WORD.ordinal()],
+                    TestAssets.VALID_SEARCHES[TestAssets.SearchBy.MULTI_WORDS_ORIGINAL_ORDER.ordinal()]
+            );
+
+            driver.findElement(By.id("searchInput")).clear();
+            driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
+            driver.findElement(By.id("searchButton")).click();
+
+            assertTrue(driver.findElement(By.id("invalidSearchMessage")).isDisplayed());
+            assertEquals(driver.findElement(By.id("invalidSearchMessage")).getText(), "Error! No result found for your search.");
+
+            // utd or fanfiction
+            searchQuery = String.format("%s [OR] %s",
+                    TestAssets.VALID_SEARCHES
+                            [TestAssets.ValidSite.UTD.ordinal()]
+                            [TestAssets.SearchBy.ONE_WORD.ordinal()],
+                    TestAssets.VALID_SEARCHES
+                            [TestAssets.ValidSite.FANFICTION.ordinal()]
+                            [TestAssets.SearchBy.ONE_WORD.ordinal()]
+            );
+            int[] expectedSiteIndices = {
+                    TestAssets.ValidSite.UTD.ordinal(),
+                    TestAssets.ValidSite.FANFICTION.ordinal()
+            };
+
+            driver.findElement(By.id("searchInput")).clear();
+            driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
+            driver.findElement(By.id("searchButton")).click();
+
+            validateUrlDescriptionTable(expectedSiteIndices);
+
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -439,10 +518,26 @@ public class CyberminerTest {
 
     @Test(priority = 18)
     public void verifyNotSearch() {
-        currentTestCase = 18;
 
         try {
-            testLog.pass(currentTestCase);
+            // anything but google
+            String searchQuery = String.format("[NOT] %s",
+                    TestAssets.VALID_SEARCHES
+                            [TestAssets.ValidSite.GOOGLE.ordinal()]
+                            [TestAssets.SearchBy.ONE_WORD.ordinal()]);
+            testLog.pass();
+
+            int[] expectedSiteIndices = {
+                    TestAssets.ValidSite.UTD.ordinal(),
+                    TestAssets.ValidSite.WIKIPEDIA.ordinal(),
+                    TestAssets.ValidSite.FANFICTION.ordinal()
+            };
+
+            driver.findElement(By.id("searchInput")).clear();
+            driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
+            driver.findElement(By.id("searchButton")).click();
+
+            validateUrlDescriptionTable(expectedSiteIndices);
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -452,17 +547,14 @@ public class CyberminerTest {
 
     @Test(priority = 19)
     public void verifyAbleToSortAscendingDescription() {
-        currentTestCase = 19;
 
         try {
             // https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
-            driver.findElement(By.id("searchInput")).clear();
-            driver.findElement(By.id("searchInput")).sendKeys(TestAssets.SEARCH_WITH_MULTIPLE_RESULTS);
-            driver.findElement(By.id("searchButton")).click();
+            //
 
             // sort results
 
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -472,11 +564,10 @@ public class CyberminerTest {
 
     @Test(priority = 20)
     public void verifyAbleToSortDescendingDescription() {
-        currentTestCase = 20;
 
         try {
             //https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
-            testLog.pass(currentTestCase);
+            testLog.pass();
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -504,9 +595,56 @@ public class CyberminerTest {
 
     private void handleThrowable(Throwable t) {
         String errorMessage = t.getMessage().split("\n")[0];
-        testLog.fail(currentTestCase, errorMessage);
+        testLog.fail(errorMessage);
         t.printStackTrace();
         fail();
+    }
+
+
+    private void goBackToWelcomeScreen() throws Throwable {
+        assertTrue(isElementPresent(By.id("backToWelcome")));
+        driver.findElement(By.id("backToWelcome")).click();
+        assertTrue(driver.findElement(By.id("heading")).isDisplayed());
+        testLog.pass();
+    }
+
+
+    private void validateUrlDescriptionTable(int[] expectedSiteIndices) throws Throwable {
+        // find list of all urls and descriptions
+        List<WebElement> actualUrls = driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]"));
+        List<WebElement> actualDescriptions = driver.findElements(By.xpath("//*[contains(@id, 'descriptionNumber')]"));
+        LinkedList<Integer> orderExpectedSiteIndices = new LinkedList<Integer>();
+        int site = 0;
+
+        // make sure the actual number of items is equal to the expected number of items
+        assertEquals(actualUrls.size(), expectedSiteIndices.length);
+
+        // find the order of the expected items according to the order of the actual items
+        for(WebElement element : actualUrls) {
+            for(int i = 0; i < expectedSiteIndices.length; i++) {
+                site = expectedSiteIndices[i];
+                if(element.getText().equals(TestAssets.VALID_ITEMS
+                        [site][TestAssets.Component.URL.ordinal()])) {
+                    orderExpectedSiteIndices.add(site);
+                    break;
+                }
+            }
+        }
+
+        assertEquals(orderExpectedSiteIndices.size(), expectedSiteIndices.length);
+
+        int currentSiteIndex = 0;
+        String expectedCurrentUrl = null, expectedCurrentDescription = null;
+
+        // check pairs
+        for(int i = 0; i < actualUrls.size(); i++) {
+            currentSiteIndex = orderExpectedSiteIndices.removeFirst();
+            expectedCurrentUrl = TestAssets.VALID_ITEMS[currentSiteIndex][TestAssets.Component.URL.ordinal()];
+            expectedCurrentDescription = TestAssets.VALID_ITEMS[currentSiteIndex][TestAssets.Component.DESCRIPTION.ordinal()];
+
+            assertTrue(actualUrls.get(i).getText().equals(expectedCurrentUrl));
+            assertTrue(actualDescriptions.get(i).getText().equals(expectedCurrentDescription));
+        }
     }
 
 }
