@@ -506,7 +506,7 @@ public class CyberminerTest {
             driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
             driver.findElement(By.id("searchButton")).click();
 
-            validateUrlDescriptionTable(expectedSiteIndices);
+            validateUrlDescriptionTableUnordered(expectedSiteIndices);
 
             testLog.pass();
         }
@@ -537,7 +537,7 @@ public class CyberminerTest {
             driver.findElement(By.id("searchInput")).sendKeys(searchQuery);
             driver.findElement(By.id("searchButton")).click();
 
-            validateUrlDescriptionTable(expectedSiteIndices);
+            validateUrlDescriptionTableUnordered(expectedSiteIndices);
         }
         catch (Throwable t) {
             handleThrowable(t);
@@ -550,10 +550,17 @@ public class CyberminerTest {
 
         try {
             // https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
-            //
 
-            // sort results
+            // continue from NOT search results (utd, wikipedia, fanfiction)
 
+            int[] expectedAscendingDescriptionSiteIndices = {
+                    TestAssets.ValidSite.UTD.ordinal(),
+                    TestAssets.ValidSite.FANFICTION.ordinal(),
+                    TestAssets.ValidSite.WIKIPEDIA.ordinal()
+            };
+
+            driver.findElement(By.id("ascendingButton")).click();
+            validateUrlDescriptionTableOrdered(expectedAscendingDescriptionSiteIndices);
             testLog.pass();
         }
         catch (Throwable t) {
@@ -567,6 +574,15 @@ public class CyberminerTest {
 
         try {
             //https://stackoverflow.com/questions/36950061/how-to-check-webelements-in-webtable-is-sorted-alphabetically-using-selenium-web
+
+            int[] expectedDescendingDescriptionSiteIndices = {
+                    TestAssets.ValidSite.WIKIPEDIA.ordinal(),
+                    TestAssets.ValidSite.FANFICTION.ordinal(),
+                    TestAssets.ValidSite.UTD.ordinal()
+            };
+
+            driver.findElement(By.id("descendingButton")).click();
+            validateUrlDescriptionTableOrdered(expectedDescendingDescriptionSiteIndices);
             testLog.pass();
         }
         catch (Throwable t) {
@@ -609,21 +625,19 @@ public class CyberminerTest {
     }
 
 
-    private void validateUrlDescriptionTable(int[] expectedSiteIndices) throws Throwable {
+    private void validateUrlDescriptionTableUnordered(int[] expectedSiteIndices) throws Throwable {
         // find list of all urls and descriptions
         List<WebElement> actualUrls = driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]"));
         List<WebElement> actualDescriptions = driver.findElements(By.xpath("//*[contains(@id, 'descriptionNumber')]"));
         LinkedList<Integer> orderExpectedSiteIndices = new LinkedList<Integer>();
-        int site = 0;
 
         // make sure the actual number of items is equal to the expected number of items
         assertEquals(actualUrls.size(), expectedSiteIndices.length);
 
         // find the order of the expected items according to the order of the actual items
         for(WebElement element : actualUrls) {
-            for(int i = 0; i < expectedSiteIndices.length; i++) {
-                site = expectedSiteIndices[i];
-                if(element.getText().equals(TestAssets.VALID_ITEMS
+            for (int site : expectedSiteIndices) {
+                if (element.getText().equals(TestAssets.VALID_ITEMS
                         [site][TestAssets.Component.URL.ordinal()])) {
                     orderExpectedSiteIndices.add(site);
                     break;
@@ -644,6 +658,27 @@ public class CyberminerTest {
 
             assertTrue(actualUrls.get(i).getText().equals(expectedCurrentUrl));
             assertTrue(actualDescriptions.get(i).getText().equals(expectedCurrentDescription));
+        }
+    }
+
+
+    private void validateUrlDescriptionTableOrdered(int[] expectedOrderedSiteIndices) throws Throwable {
+        List<WebElement> actualUrls = driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]"));
+        List<WebElement> actualDescriptions = driver.findElements(By.xpath("//*[contains(@id, 'descriptionNumber')]"));
+        String actualUrl = null, expectedUrl = null, actualDescription = null, expectedDescription = null;
+
+        assertEquals(actualUrls.size(), expectedOrderedSiteIndices.length);
+
+        for(int i = 0; i < actualUrls.size(); i++) {
+            actualUrl = actualUrls.get(i).getText();
+            actualDescription = actualDescriptions.get(i).getText();
+            expectedUrl = TestAssets.VALID_ITEMS[expectedOrderedSiteIndices[i]]
+                    [TestAssets.Component.URL.ordinal()];
+            expectedDescription = TestAssets.VALID_ITEMS[expectedOrderedSiteIndices[i]]
+                    [TestAssets.Component.DESCRIPTION.ordinal()];
+
+            assertEquals(actualUrl, expectedUrl);
+            assertEquals(actualDescription, expectedDescription);
         }
     }
 
