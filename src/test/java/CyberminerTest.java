@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,6 +22,7 @@ public class CyberminerTest {
     private WebDriver driver;
     private String baseUrl;
     private TestLog testLog;
+    private String os = System.getProperty("os.name");
 
 
     @BeforeClass(alwaysRun = true)
@@ -28,8 +30,12 @@ public class CyberminerTest {
         /*
          * if cannot open the browser, check out:
          * https://intellij-support.jetbrains.com/hc/en-us/community/posts/207120569-Page-requested-without-authorization
+         *
+         * if error: "D is not an executable" on mac, where X is a driver, type
+         *      chmod +x D
+         * in the terminal, where D is the driver name
          */
-        Browser browser = Browser.CHROME;
+        Browser browser = Browser.SAFARI;
         setBrowser(browser);
         // clear database
         baseUrl = "http://localhost:63342/Cyberminer/gui/index.html";
@@ -42,17 +48,43 @@ public class CyberminerTest {
     private void setBrowser(Browser browser) {
         switch (browser) {
             case SAFARI:
+                if(os.contains("Windows")) {
+                    // windows does not support safari
+                    System.out.println("Windows does not support Safari");
+                    System.exit(-1);
+                }
+                else {
+                    // safari driver
+                    driver = new SafariDriver();
+                }
                 break;
             case EDGE:
-                System.setProperty("webdriver.edge.driver", "drivers/MicrosoftWebDriver.exe");
-                driver = new EdgeDriver();
+                if(os.contains("Windows")) {
+                    System.setProperty("webdriver.edge.driver", "drivers/MicrosoftWebDriver.exe");
+                    driver = new EdgeDriver();
+                }
+                else {
+                    // mac does not support edge
+                    System.out.println("Mac does not support Edge");
+                    System.exit(-1);
+                }
                 break;
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+                if(os.contains("Windows")) {
+                    System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+                }
+                else {
+                    System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+                }
                 driver = new ChromeDriver();
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+                if(os.contains("Windows")) {
+                    System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+                }
+                else {
+                    System.setProperty("webdriver.gecko.driver", "drivers/geckodriver");
+                }
                 driver = new FirefoxDriver();
                 break;
         }
