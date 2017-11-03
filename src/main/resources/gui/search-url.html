@@ -11,7 +11,7 @@
     <form style="margin-top: 2%;" id="form">
         <div class="form-row">
             <div class="col-9">
-                    <textarea type="text" rows="10" cols="80"
+                    <textarea type="text" rows="1" cols="80"
                               placeholder="What are you looking for?"
                               class="form-control" id="searchInput"></textarea>
             </div>
@@ -37,12 +37,8 @@
             <table class="table-striped table-bordered col-10" id="searchResultTable">
                 <thead>
                     <tr>
-                        <td id="urlHeader">
-                            URL
-                        </td>
-                        <td id="descriptionHeader">
-                            DESCRIPTION
-                        </td>
+                        <td id="urlHeader">URL</td>
+                        <td id="descriptionHeader">DESCRIPTION</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,6 +77,14 @@
 
                 </tbody>
             </table>
+        </div>
+        <!--
+            hidden unless the resultset > maxResPerPage (see configuration)
+            dynamically calculate number of pages needed to display the resultset
+            according to the configuration
+        -->
+        <div id="pagesLink" hidden>
+
         </div>
         <!--
             initially hidden

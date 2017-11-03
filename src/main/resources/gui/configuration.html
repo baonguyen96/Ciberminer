@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyberminer</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+</head>
+<body>
+    <p><a href="index.html" id="backToWelcome">Back to Welcome screen</a></p>
+    <h3 id="configurationTitle">CONFIGURATION</h3>
+
+    <!--
+        FRs:
+        1.7.7 Customization: The system shall allow user to set the number of results to show per page, and navigation between pages.
+        1.7.9 Intelligence: The system shall be able to filter out symbols that are not meaningful, according to the user configuration.
+     -->
+    <div class="form-row">
+        <div class="col-3">
+            <label for="configurableSymbolsInput" id="configurableSymbolsLabel">Symbols to ignore</label>
+        </div>
+        <div class="col-6">
+            <textarea type="text" rows="1" cols="80"
+                      placeholder="Enter a list of 'symbols' separated by a comma, such as: 'symbol1', 'symbol2'"
+                      class="form-control" id="configurableSymbolsInput"></textarea>
+        </div>
+    </div>
+    <br>
+    <div class="form-row">
+        <div class="col-3">
+            <label for="resultsPerPageOptions" id="resultsPerPageLabel">Maximum results per page:</label>
+        </div>
+        <div class="col-6">
+            <!-- click to be active -->
+            <div class="list-group" id="resultsPerPageOptions">
+                <a href="#" class="list-group-item active" id="3resultPerPage">3</a>
+                <a href="#" class="list-group-item" id="6resultPerPage">6</a>
+                <a href="#" class="list-group-item" id="AllResultPerPage">All</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        <button id="configurationSubmitButton">Submit</button>
+    </div>
+    <!-- initially hidden, show when click the submit button -->
+    <div class="alert alert-success"
+         role="alert"
+         id="configurationUpdateMessage">
+        <strong>Congratulation! </strong>Configuration is successfully updated.
+    </div>
+
+</body>
+</html>

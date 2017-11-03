@@ -65,10 +65,10 @@ public class TestLog {
 
     private void setCurrentTestCaseResult(TestResult result, String failMessage) {
         Row row = sheet.getRow(currentTestCase);
-        row.getCell(3).setCellValue(result.name());
+        row.getCell(2).setCellValue(result.name());
 
         if(result == TestResult.FAIL) {
-            row.getCell(4).setCellValue(failMessage);
+            row.getCell(3).setCellValue(failMessage);
         }
 
         currentTestCase++;
