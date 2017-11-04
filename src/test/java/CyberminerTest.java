@@ -349,9 +349,10 @@ public class CyberminerTest {
             assertTrue(driver.findElement(By.id("urlNumber0")).isDisplayed());
 
             int originalNumberOfTuple = driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]")).size();
+            assertEquals(originalNumberOfTuple, TestAssets.ValidSite.values().length + 1);
+
             String urlToDelete = driver.findElement(By.id("urlNumber0")).getText();
             String descriptionToDelete = driver.findElement(By.id("descriptionNumber0")).getText();
-
             driver.findElement(By.id("deleteButtonNumber0")).click();
 
             List<WebElement> remainingUrlList = driver.findElements(By.xpath("//*[contains(@id, 'urlNumber')]"));
@@ -742,10 +743,10 @@ public class CyberminerTest {
 
         // find the order of the expected items according to the order of the actual items
         for(WebElement element : actualUrls) {
-            for (int site : expectedSiteIndices) {
+            for (int siteIndex : expectedSiteIndices) {
                 if (element.getText().equals(TestAssets.VALID_ITEMS
-                        [site][TestAssets.Component.URL.ordinal()])) {
-                    orderExpectedSiteIndices.add(site);
+                        [siteIndex][TestAssets.Component.URL.ordinal()])) {
+                    orderExpectedSiteIndices.add(siteIndex);
                     break;
                 }
             }
