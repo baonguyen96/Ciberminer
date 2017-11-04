@@ -1,11 +1,14 @@
 public class TestAssets {
 
     enum Component {URL, DESCRIPTION}
-    enum ValidSite {/*facebook is deleted*/ GOOGLE, UTD, WIKIPEDIA, FANFICTION}
+    enum ValidSite {GOOGLE, UTD, WIKIPEDIA, FANFICTION}
     enum SearchBy {ONE_WORD, MULTI_WORDS}
 
+    // add then delete
+    public static final String[] FACEBOOK = {"https://www.facebook.com", "Social media black hole (end)"};
+
     public static final String[][] VALID_ITEMS = {
-            {"https://www.facebook.com", "Social media black hole (end)"},  // to be deleted
+            // facebook will be deleted
             {"http://www.google.com", "This is Google home page (end)"},
             {"http://www.utdallas.edu", "THE UNIVERSITY OF TEXAS AT DALLAS (end)"},
             {"https://www.wikipedia.org", "Wikipedia is the world's largest encyclopedia yet (end)"},
@@ -18,7 +21,7 @@ public class TestAssets {
     };
 
     public static final String[][] VALID_SEARCHES = {
-            // facebook is deleted
+            // facebook will be deleted
             {"Google", "Google home page"},
             {"DALLAS", "UNIVERSITY OF TEXAS"},
             {"Wikipedia", "largest encyclopedia yet"},
@@ -26,13 +29,14 @@ public class TestAssets {
     };
 
     public static final String[] INVALID_SEARCHES = {
-            "Nonexist", "this website does not exist"
+            "Nonexist",
+            FACEBOOK[Component.DESCRIPTION.ordinal()]
     };
 
     public static final String SEARCH_WITH_MULTIPLE_RESULTS = "This is";
 
     public static final String SEARCH_COMMON_TO_ALL = "(end)";
 
-    public static final String IGNORED_SYMBOLS = "\'@\',\'#\',\'`\'";
+    public static final String IGNORED_SYMBOLS = "'@','#','`'";
 
 }

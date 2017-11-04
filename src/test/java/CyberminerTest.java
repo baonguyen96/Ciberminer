@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,6 +22,7 @@ public class CyberminerTest {
     private enum Browser {CHROME, FIREFOX, SAFARI, EDGE}
 
     private WebDriver driver;
+    private WebDriverWait wait;
     private String baseUrl;
     private TestLog testLog;
     private String os = System.getProperty("os.name");
@@ -35,11 +38,13 @@ public class CyberminerTest {
          *      chmod +x D
          * in the terminal, where D is the driver name
          */
-        Browser browser = Browser.SAFARI;
+        Browser browser = Browser.CHROME;
         setBrowser(browser);
         // clear database
         baseUrl = "http://localhost:63342/Cyberminer/gui/index.html";
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, 15);
         testLog = new TestLog(browser.name());
         driver.get(baseUrl);
     }
@@ -252,6 +257,18 @@ public class CyberminerTest {
         try {
             driver.findElement(By.id("addUrlButton")).click();
 
+            // add facebook
+            driver.findElement(By.id("urlInput")).clear();
+            driver.findElement(By.id("urlInput")).sendKeys(
+                    TestAssets.FACEBOOK[TestAssets.Component.URL.ordinal()]);
+            driver.findElement(By.id("descriptionInput")).clear();
+            driver.findElement(By.id("descriptionInput")).sendKeys(
+                    TestAssets.FACEBOOK[TestAssets.Component.DESCRIPTION.ordinal()]);
+            driver.findElement(By.id("addUrlSubmitButton")).click();
+            assertFalse(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
+            assertTrue(driver.findElement(By.id("validUrlMessage")).isDisplayed());
+
+            // add all valid items
             for (String[] item : TestAssets.VALID_ITEMS) {
                 driver.findElement(By.id("urlInput")).clear();
                 driver.findElement(By.id("urlInput")).sendKeys(
@@ -300,19 +317,13 @@ public class CyberminerTest {
     public void verifyAbleToRejectAddingExistingUrl() {
 
         try {
-            // try google
+            // try facebook
             driver.findElement(By.id("urlInput")).clear();
             driver.findElement(By.id("urlInput")).sendKeys(
-                    TestAssets.VALID_ITEMS
-                            [TestAssets.ValidSite.GOOGLE.ordinal()]
-                            [TestAssets.Component.URL.ordinal()]
-            );
+                    TestAssets.FACEBOOK[TestAssets.Component.URL.ordinal()]);
             driver.findElement(By.id("descriptionInput")).clear();
             driver.findElement(By.id("descriptionInput")).sendKeys(
-                    TestAssets.VALID_ITEMS
-                            [TestAssets.ValidSite.GOOGLE.ordinal()]
-                            [TestAssets.Component.DESCRIPTION.ordinal()]
-            );
+                    TestAssets.FACEBOOK[TestAssets.Component.DESCRIPTION.ordinal()]);
             driver.findElement(By.id("addUrlSubmitButton")).click();
             assertTrue(driver.findElement(By.id("invalidUrlMessage")).isDisplayed());
             assertFalse(driver.findElement(By.id("validUrlMessage")).isDisplayed());
@@ -332,6 +343,7 @@ public class CyberminerTest {
     public void verifyAbleToDeleteUrl() {
 
         try {
+            // delete facebook
             driver.findElement(By.id("deleteUrlButton")).click();
             assertEquals(driver.findElement(By.id("deleteTitle")).getText(), "DELETE");
             assertTrue(driver.findElement(By.id("urlNumber0")).isDisplayed());
@@ -351,7 +363,6 @@ public class CyberminerTest {
                 assertEquals(remainingUrlList.get(i).getText(), urlToDelete);
                 assertEquals(remainingDescriptionList.get(i).getText(), descriptionToDelete);
             }
-
 
             testLog.pass();
         }
@@ -383,6 +394,7 @@ public class CyberminerTest {
                 );
                 driver.findElement(By.id("searchButton")).click();
 
+                waitForVisible(By.id("urlNumber0"));
                 expectedUrl = TestAssets.VALID_ITEMS[site.ordinal()][TestAssets.Component.URL.ordinal()];
                 actualUrl = driver.findElement(By.id("urlNumber0")).getText();
                 assertEquals(actualUrl, expectedUrl);
@@ -390,7 +402,6 @@ public class CyberminerTest {
                 expectedDescription = TestAssets.VALID_ITEMS[site.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
                 actualDescription = driver.findElement(By.id("descriptionNumber0")).getText();
                 assertEquals(actualDescription, expectedDescription);
-
                 assertFalse(isElementPresent(By.id("urlNumber1")));
             }
 
@@ -416,11 +427,12 @@ public class CyberminerTest {
                 );
                 driver.findElement(By.id("searchButton")).click();
 
-                expectedUrl = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.URL.ordinal()];
+                waitForVisible(By.id("urlNumber0"));
+                expectedUrl = TestAssets.VALID_ITEMS[site.ordinal()][TestAssets.Component.URL.ordinal()];
                 actualUrl = driver.findElement(By.id("urlNumber0")).getText();
                 assertEquals(actualUrl, expectedUrl);
 
-                expectedDescription = TestAssets.INVALID_ITEMS[site.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
+                expectedDescription = TestAssets.VALID_ITEMS[site.ordinal()][TestAssets.Component.DESCRIPTION.ordinal()];
                 actualDescription = driver.findElement(By.id("descriptionNumber0")).getText();
                 assertEquals(actualDescription, expectedDescription);
 
@@ -645,13 +657,15 @@ public class CyberminerTest {
             WebElement webElement = driver.findElement(By.id("urlNumber0"));
             String expectedNextUrl = webElement.getText().concat("/");
             webElement.click();
+            waitForNotVisible(By.id("searchTitle"));
+
             String newCurrentUrl = driver.getCurrentUrl();
 
-            assertFalse(isElementPresent(By.id("urlNumber0")));
             assertNotEquals(newCurrentUrl, oldCurrentUrl);
             assertEquals(newCurrentUrl, expectedNextUrl);
 
             driver.navigate().back();
+            waitForVisible(By.id("searchTitle"));
             driver.findElement(By.id("backToWelcome")).click();
 
             testLog.pass();
@@ -772,6 +786,16 @@ public class CyberminerTest {
             assertEquals(actualUrl, expectedUrl);
             assertEquals(actualDescription, expectedDescription);
         }
+    }
+
+
+    private void waitForNotVisible(By by) throws Throwable {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
+
+
+    private void waitForVisible(By by) throws Throwable {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
 }
