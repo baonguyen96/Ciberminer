@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyberminer</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+</head>
+<body>
+    <p><a href="index.html" id="backToWelcome">Back to Welcome screen</a></p>
+    <h3 id="addTitle">ADD</h3>
+    <form style="margin-top: 2%;"
+          id="form">
+        <label for="urlInput"
+               id="urlLabel">URL</label>
+        <div class="form-row">
+            <div class="col-10">
+                <textarea type="text"
+                          rows="1"
+                          cols="80"
+                          class="form-control"
+                          id="urlInput"
+                          placeholder="Please enter your URL here."></textarea>
+            </div>
+        </div>
+        <br>
+        <label for="descriptionInput"
+               id="descriptionLabel">DESCRIPTION</label>
+        <div class="form-row">
+            <div class="col-10">
+                <textarea type="text"
+                          rows="1"
+                          cols="80"
+                          class="form-control"
+                          id="descriptionInput"
+                          placeholder="Please enter your description here."></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <input type="submit"
+                   value="SUBMIT"
+                   id="addUrlSubmitButton"/>
+        </div>
+        <!--
+            make the following 2 elements hidden when click on the search area
+            modify visibility of either one when clicking the add button
+            if add successful:
+                surface validUrlMessage
+                hide invalidUrlMessage
+            else:
+                surface invalidUrlMessage
+                hide validUrlMessage
+        -->
+        <div class="alert alert-danger"
+             role="alert"
+             id="invalidUrlMessage"
+             >
+            <strong>Error! </strong>
+            You entered an invalid URL, or the URL is already existed in the database.
+        </div>
+        <div class="alert alert-success"
+             role="alert"
+             id="validUrlMessage">
+            <strong>Congratulation! </strong>New URL-Description is added.
+        </div>
+    </form>
+</body>
+</html>

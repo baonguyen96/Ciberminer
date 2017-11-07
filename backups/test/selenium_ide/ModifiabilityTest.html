@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:63342/port-folio/index.html?_ijt=h94p4g2neorm5get593pbkobjf" />
+<title>ModifiabilityTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ModifiabilityTest</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/Ciberminer/gui/index.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=addUrlButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=urlInput</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;njnjnjnjnjn</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=descriptionInput</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;njnjnjnjnjnjnjnj</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=addUrlSubmitButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotVisible</td>
+	<td>id=invalidUrlMessage</td>
+	<td></td>
+</tr>
+<!--test delete-->
+<tr>
+	<td>verifyNotText</td>
+	<td>id=description0</td>
+	<td>This is google website</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>id=url0</td>
+	<td>www.google.com</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>id=url1</td>
+	<td>www.wikipedia.org</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>id=description1</td>
+	<td>Wikipedia</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>id=description0</td>
+	<td>descriptionToDelete</td>
+</tr>
+</tbody></table>
+</body>
+</html>

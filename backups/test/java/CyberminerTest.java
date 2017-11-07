@@ -25,6 +25,7 @@ public class CyberminerTest {
     private WebDriverWait wait;
     private String baseUrl;
     private TestLog testLog;
+    private String os = System.getProperty("os.name");
 
 
     @BeforeClass(alwaysRun = true)
@@ -50,40 +51,46 @@ public class CyberminerTest {
 
 
     private void setBrowser(Browser browser) {
-        boolean isWindowsSystem = System.getProperty("os.name").contains("Windows");
-        String driverPath = null;
 
         switch (browser) {
             case SAFARI:
-                if(isWindowsSystem) {
+                if(os.contains("Windows")) {
                     // windows does not support safari
                     System.out.println("Windows does not support Safari");
                     System.exit(-1);
                 }
                 else {
+                    // safari driver
                     driver = new SafariDriver();
                 }
                 break;
             case EDGE:
-                if(isWindowsSystem) {
+                if(os.contains("Windows")) {
                     System.setProperty("webdriver.edge.driver", "drivers/MicrosoftWebDriver.exe");
                     driver = new EdgeDriver();
                 }
                 else {
+                    // mac does not support edge
                     System.out.println("Mac does not support Edge");
                     System.exit(-1);
                 }
                 break;
             case CHROME:
-                driverPath = String.format("drivers/chromedriver%s",
-                        isWindowsSystem ? ".exe" : "");
-                System.setProperty("webdriver.chrome.driver", driverPath);
+                if(os.contains("Windows")) {
+                    System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+                }
+                else {
+                    System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+                }
                 driver = new ChromeDriver();
                 break;
             case FIREFOX:
-                driverPath = String.format("drivers/geckodriver%s",
-                        isWindowsSystem ? ".exe" : "");
-                System.setProperty("webdriver.gecko.driver", driverPath);
+                if(os.contains("Windows")) {
+                    System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+                }
+                else {
+                    System.setProperty("webdriver.gecko.driver", "drivers/geckodriver");
+                }
                 driver = new FirefoxDriver();
                 break;
         }
