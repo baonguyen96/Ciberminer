@@ -5,16 +5,18 @@
     <title>Cyberminer</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="my-stylesheet.css">
 </head>
 <body>
     <p><a href="index.html" id="backToWelcome">Back to Welcome screen</a></p>
     <h3 id="addTitle">ADD</h3>
-    <form style="margin-top: 2%;"
-          id="form">
-        <label for="urlInput"
-               id="urlLabel">URL</label>
+    <form style="margin-top: 2%;" id="form">
         <div class="form-row">
-            <div class="col-10">
+            <label for="urlInput"
+                   class="col-3"
+                   id="urlLabel">URL</label>
+            <div class="col-9">
                 <textarea type="text"
                           rows="1"
                           cols="80"
@@ -24,10 +26,11 @@
             </div>
         </div>
         <br>
-        <label for="descriptionInput"
-               id="descriptionLabel">DESCRIPTION</label>
         <div class="form-row">
-            <div class="col-10">
+            <label for="descriptionInput"
+                   class="col-3"
+                   id="descriptionLabel">DESCRIPTION</label>
+            <div class="col-9">
                 <textarea type="text"
                           rows="1"
                           cols="80"
@@ -38,10 +41,13 @@
         </div>
         <br>
         <div class="form-row">
-            <input type="submit"
-                   value="SUBMIT"
-                   id="addUrlSubmitButton"/>
+            <div class="col-3"></div>
+            <div>
+                <button class="btn btn-primary my-button"
+                        id="addUrlSubmitButton">SUBMIT</button>
+            </div>
         </div>
+        <br>
         <!--
             make the following 2 elements hidden when click on the search area
             modify visibility of either one when clicking the add button
@@ -52,14 +58,13 @@
                 surface invalidUrlMessage
                 hide validUrlMessage
         -->
-        <div class="alert alert-danger"
+        <div class="alert alert-danger my-alert"
              role="alert"
-             id="invalidUrlMessage"
-             >
+             id="invalidUrlMessage">
             <strong>Error! </strong>
             You entered an invalid URL, or the URL is already existed in the database.
         </div>
-        <div class="alert alert-success"
+        <div class="alert alert-success my-alert"
              role="alert"
              id="validUrlMessage">
             <strong>Congratulation! </strong>New URL-Description is added.

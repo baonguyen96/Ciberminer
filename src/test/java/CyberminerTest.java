@@ -95,10 +95,10 @@ public class CyberminerTest {
 
         try {
             assertEquals(driver.findElement(By.id("heading")).getText(), "Welcome to our Cyberminer search engine");
-            assertEquals(driver.findElement(By.id("addUrlButton")).getAttribute("value"), "ADD URL");
-            assertEquals(driver.findElement(By.id("deleteUrlButton")).getAttribute("value"), "DELETE URL");
-            assertEquals(driver.findElement(By.id("searchUrlButton")).getAttribute("value"), "SEARCH URL");
-            assertEquals(driver.findElement(By.id("configurationButton")).getAttribute("value"), "CONFIGURATION");
+            assertEquals(driver.findElement(By.id("addUrlButton")).getText(), "ADD URL");
+            assertEquals(driver.findElement(By.id("deleteUrlButton")).getText(), "DELETE URL");
+            assertEquals(driver.findElement(By.id("searchUrlButton")).getText(), "SEARCH URL");
+            assertEquals(driver.findElement(By.id("configurationButton")).getText(), "CONFIGURATION");
             assertTrue(isElementPresent(By.id("help")));
 
             testLog.pass();
@@ -219,7 +219,7 @@ public class CyberminerTest {
             assertFalse(driver.findElement(By.id("configurationUpdateMessage")).isDisplayed());
             driver.findElement(By.id("configurableSymbolsInput")).clear();
             driver.findElement(By.id("configurableSymbolsInput")).sendKeys(TestAssets.IGNORED_SYMBOLS);
-            driver.findElement(By.id("3resultPerPage")).click();
+            driver.findElement(By.id("allResultPerPage")).click();
             assertTrue(driver.findElement(By.id("configurationSubmitButton")).isDisplayed());
             driver.findElement(By.id("configurationSubmitButton")).click();
             assertTrue(driver.findElement(By.id("configurationUpdateMessage")).isDisplayed());

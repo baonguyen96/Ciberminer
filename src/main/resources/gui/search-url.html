@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Cyberminer</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="my-stylesheet.css">
 </head>
 <body>
     <p><a href="index.html" id="backToWelcome">Back to Welcome screen</a></p>
@@ -11,17 +12,18 @@
     <form style="margin-top: 2%;" id="form">
         <div class="form-row">
             <div class="col-9">
-                    <textarea type="text" rows="1" cols="80"
+                    <textarea type="text" rows="1" cols="100"
                               placeholder="What are you looking for?"
                               class="form-control" id="searchInput"></textarea>
             </div>
             <div class="col-3">
-                <input type="submit" value="Search" id="searchButton">
+                <button class="btn btn-primary my-button"
+                        id="searchButton">Search</button>
             </div>
         </div>
-        <br>
+        <br><br>
         <div class="form-row">
-            <div class="col-6">
+            <div class="col-8">
                 <h3 id="resultLabel">RESULTS</h3>
             </div>
             <div class="col-1">
@@ -47,7 +49,7 @@
             stay hidden if search not found
         -->
         <div class="form-row table-responsive">
-            <table class="table-striped table-bordered col-10" id="searchResultTable">
+            <table class="table-striped table-bordered col-12" id="searchResultTable">
                 <thead>
                     <tr>
                         <td id="urlHeader">URL</td>
@@ -68,7 +70,7 @@
                             <a href="https://www.wikipedia.org" id="urlNumber0">https://www.wikipedia.org</a>
                         </td>
                         <td>
-                            <p id="descriptionNumber0">Wikipedia is the world's largest encyclopedia yet (end)</p>
+                            <div id="descriptionNumber0">Wikipedia is the world's largest encyclopedia yet (end)</div>
                         </td>
                     </tr>
                     <tr>
@@ -76,7 +78,7 @@
                             <a href="https://www.fanfiction.net" id="urlNumber1">https://www.fanfiction.net</a>
                         </td>
                         <td>
-                            <p id="descriptionNumber1">This is FAN FICTION website don't ask me why (end)</p>
+                            <div id="descriptionNumber1">This is FAN FICTION website don't ask me why (end)</div>
                         </td>
                     </tr>
                     <tr>
@@ -84,7 +86,7 @@
                             <a href="http://www.utdallas.edu" id="urlNumber2">http://www.utdallas.edu</a>
                         </td>
                         <td>
-                            <p id="descriptionNumber2">THE UNIVERSITY OF TEXAS AT DALLAS (end)</p>
+                            <div id="descriptionNumber2">THE UNIVERSITY OF TEXAS AT DALLAS (end)</div>
                         </td>
                     </tr>
 
@@ -96,20 +98,18 @@
             dynamically calculate number of pages needed to display the resultset
             according to the configuration
         -->
-        <div id="pagesLink" hidden>
-
-        </div>
-        <!--
+        <div id="pagesLink" hidden></div>
+        <br>
+    </form>
+    <!--
             initially hidden
             appear when invalid search
             hide again when click on the search bar
         -->
-        <div class="alert alert-danger"
-             role="alert"
-             id="invalidSearchMessage"
-             >
-            <strong>Error! </strong>No result found for your search.
-        </div>
-    </form>
+    <div class="alert alert-danger my-alert"
+         role="alert"
+         id="invalidSearchMessage">
+        <strong>Error!</strong>&nbsp;No result found for your search.
+    </div>
 </body>
 </html>

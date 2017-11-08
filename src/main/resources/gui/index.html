@@ -5,36 +5,66 @@
     <title>Cyberminer</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="my-stylesheet.css">
 </head>
-<body style="">
-    <a style="margin-right:380px;margin-top:30px;float:right"
-       href="userManual.pdf"
-       id="help">Help</a>
-    <h3 text-align="centre"
-        id="heading">Welcome to our Cyberminer search engine</h3>
+<body>
 
+    <h3 style="text-align: center" id="heading">
+        Welcome to our Cyberminer search engine</h3>
+    <br>
+    <p style="text-align: center"><a href="userManual.pdf" id="help">Help</a></p>
+    <br>
+    <br>
+    <div class="container" style="text-align: center">
 
-    <div class="container">
-        <form action="add-url.html">
-            <input type="submit"
-                   id="addUrlButton"
-                   value="ADD URL"/>
-        </form>
-        <form action="delete-url.html">
-            <input type="submit"
-                   id="deleteUrlButton"
-                   value="DELETE URL"/>
-        </form>
-        <form action="search-url.html">
-            <input type="submit"
-                   id="searchUrlButton"
-                   value="SEARCH URL"/>
-        </form>
-        <form action="configuration.html">
-            <input type="submit"
-                   id="configurationButton"
-                   value="CONFIGURATION"/>
-        </form>
+        <div>
+            <a class="btn btn-primary my-button"
+               href="add-url.html"
+               id="addUrlButton"
+               role="button">ADD URL</a>
+        </div>
+        <br>
+        <div>
+            <a class="btn btn-primary my-button"
+               href="delete-url.html"
+               id="deleteUrlButton"
+               role="button">DELETE URL</a>
+        </div>
+        <br>
+        <div>
+            <a class="btn btn-primary my-button"
+               href="search-url.html"
+               id="searchUrlButton"
+               role="button">SEARCH URL</a>
+        </div>
+        <br>
+        <div>
+            <a class="btn btn-primary my-button"
+               href="configuration.html"
+               id="configurationButton"
+               role="button">CONFIGURATION</a>
+        </div>
+        <br>
+        <!--<form action="add-url.html">-->
+            <!--<input type="submit"-->
+                   <!--id="addUrlButton"-->
+                   <!--value="ADD URL"/>-->
+        <!--</form>-->
+        <!--<form action="delete-url.html" class="my-button">-->
+            <!--<input type="submit"-->
+                   <!--id="deleteUrlButton"-->
+                   <!--value="DELETE URL"/>-->
+        <!--</form>-->
+        <!--<form action="search-url.html" class="my-button">-->
+            <!--<input type="submit"-->
+                   <!--id="searchUrlButton"-->
+                   <!--value="SEARCH URL"/>-->
+        <!--</form>-->
+        <!--<form action="configuration.html" class="my-button">-->
+            <!--<input type="submit"-->
+                   <!--id="configurationButton"-->
+                   <!--value="CONFIGURATION"/>-->
+        <!--</form>-->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
