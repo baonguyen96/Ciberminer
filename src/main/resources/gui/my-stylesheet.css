@@ -1,5 +1,7 @@
 body {
     padding: 3% 10%;
+    min-width: 900px;
+    min-height: 600px;
 }
 
 form {
