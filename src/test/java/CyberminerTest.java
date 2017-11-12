@@ -99,7 +99,7 @@ public class CyberminerTest {
             assertEquals(driver.findElement(By.id("deleteUrlButton")).getText(), "DELETE URL");
             assertEquals(driver.findElement(By.id("searchUrlButton")).getText(), "SEARCH URL");
             assertEquals(driver.findElement(By.id("configurationButton")).getText(), "CONFIGURATION");
-            assertTrue(isElementPresent(By.id("help")));
+            assertEquals(driver.findElement(By.id("help")).getText(), "HELP");
 
             testLog.pass();
         }
@@ -214,7 +214,7 @@ public class CyberminerTest {
             assertEquals(driver.findElement(By.id("configurationTitle")).getText(), "CONFIGURATION");
             assertEquals(driver.findElement(By.id("configurableSymbolsLabel")).getText(), "Symbols to ignore");
             assertTrue(isElementPresent(By.id("configurableSymbolsInput")));
-            assertEquals(driver.findElement(By.id("resultsPerPageLabel")).getText(), "Maximum results per page:");
+            assertEquals(driver.findElement(By.id("resultsPerPageLabel")).getText(), "Maximum results per page");
             assertTrue(isElementPresent(By.id("resultsPerPageOptions")));
             assertFalse(driver.findElement(By.id("configurationUpdateMessage")).isDisplayed());
             driver.findElement(By.id("configurableSymbolsInput")).clear();
@@ -610,7 +610,7 @@ public class CyberminerTest {
                     TestAssets.ValidSite.WIKIPEDIA.ordinal()
             };
 
-            driver.findElement(By.id("ascendingButton")).click();
+            driver.findElement(By.id("ascendingDescriptionButton")).click();
             validateUrlDescriptionTableOrdered(expectedAscendingDescriptionSiteIndices);
             testLog.pass();
         }
@@ -630,7 +630,7 @@ public class CyberminerTest {
                     TestAssets.ValidSite.UTD.ordinal()
             };
 
-            driver.findElement(By.id("descendingButton")).click();
+            driver.findElement(By.id("descendingDescriptionButton")).click();
             validateUrlDescriptionTableOrdered(expectedDescendingDescriptionSiteIndices);
             testLog.pass();
         }
