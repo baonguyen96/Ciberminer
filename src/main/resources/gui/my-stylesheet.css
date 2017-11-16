@@ -2,8 +2,9 @@ body {
     padding: 3% 10%;
     min-width: 900px;
     min-height: 600px;
-    background-color: #232323;
-    color: white;
+    background-color: #222;
+    color: #aaa;
+    font-size: 1.25em;
 }
 
 form {
