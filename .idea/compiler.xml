@@ -3,7 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="Ciberminer" target="1.5" />
-      <module name="Cyberminer" target="1.5" />
+      <module name="Cyberminer" target="1.6" />
       <module name="test" target="1.5" />
     </bytecodeTargetLevel>
   </component>
