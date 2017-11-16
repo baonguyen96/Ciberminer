@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyberminer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/my-stylesheet.css">
+</head>
+<body>
+    <p><a href="index.html" id="backToWelcome">Back to Welcome screen</a></p>
+    <br>
+    <h3 id="deleteTitle">DELETE</h3>
+    <br>
+    <!--
+        see page 13 of this document: https://cometmail-my.sharepoint.com/personal/rxs142530_utdallas_edu/_layouts/15/WopiFrame.aspx?sourcedoc=%7Bce338e94-c9d5-4201-afef-31467b9ae32e%7D&action=default&slrid=e155289e-804f-4000-769f-e0fb09095d01
+        replicate this style (or similar to this)
+        for each delete button, name them id="deleteButton{{index}}" to make each of them unique
+    -->
+    <table class="table table-striped table-bordered table-responsive" id="allUrlTable">
+        <thead>
+            <tr>
+                <th id="urlHeader" width="25%">URL</th>
+                <th id="descriptionHeader" width="50%">DESCRIPTION</th>
+                <th width="25%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--
+                dynamically add new row to the table using jquery
+                each row consist of 3 columns: url, description, delete button
+                https://stackoverflow.com/questions/6473111/add-delete-table-rows-dynamically-using-javascript
+
+                for each of those, index them such that they will have
+                unique id, i.e. {urlNumber0, descriptionNumber0, deleteButtonNumber0,
+                urlNumber1, descriptionNumber1, deleteButtonNumber1, etc.}
+                see documents on page search-url.html for this
+
+                the order of row is the same as the order of items being added (queue)
+                i.e. add x,y -> row0 = x, row1 = y
+            -->
+            <tr>
+                <td class="align-middle">
+                    <a href="https://www.google.com" id="urlNumber0">www.google.com</a>
+                </td>
+                <td class="align-middle">
+                    <div id="descriptionNumber0">This is google website</div>
+                </td>
+                <td>
+                    <button type="submit"
+                            class="btn btn-danger my-button"
+                            id="deleteButtonNumber0">DELETE</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="align-middle">
+                    <a href="https://www.wikipedia.org" id="urlNumber1">www.wikipedia.org</a>
+                </td>
+                <td class="align-middle">
+                    <div id="descriptionNumber1">Wikipedia</div>
+                </td>
+                <td>
+                    <button type="submit"
+                            class="btn btn-danger my-button"
+                            id="deleteButtonNumber1">DELETE</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
