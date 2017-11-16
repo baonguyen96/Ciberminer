@@ -1,0 +1,43 @@
+body {
+    padding: 3% 10%;
+    min-width: 900px;
+    min-height: 600px;
+    background-color: #232323;
+    color: white;
+}
+
+form {
+    padding: 10px;
+}
+
+.my-button {
+    width: 200px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.my-alert {
+    text-align: center;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.my-img-btn {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.my-img-btn:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.td-btn {
+    display: block;
+    margin: auto;
+}
