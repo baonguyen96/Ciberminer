@@ -3,10 +3,16 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Cyberminer" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Ciberminer" target="1.5" />
-      <module name="Cyberminer" target="1.6" />
+      <module name="Cyberminer" target="1.7" />
       <module name="test" target="1.5" />
     </bytecodeTargetLevel>
   </component>
